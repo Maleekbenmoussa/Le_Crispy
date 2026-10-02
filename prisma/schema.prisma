@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email              String      @unique
+  name               String
+  phone              String?
+  avatarUrl          String?     @map("avatar_url")
+  role               String?     @default("customer")
+  preferredLanguage  String?     @default("fr") @map("preferred_language")
+  createdAt          DateTime?   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime?   @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  addresses          Address[]
+
+  @@map("users")
+}
+
+model Address {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String?   @map("user_id") @db.Uuid
+  user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  title      String
+  street     String
+  city       String
+  zipCode    String    @map("zip_code")
+  phone      String
+  isDefault  Boolean?  @default(false) @map("is_default")
+  createdAt  DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("addresses")
+}
+
+model Category {
+  id      String @id
+  nameFr  String @map("name_fr")
+  nameAr  String @map("name_ar")
+  nameEn  String @map("name_en")
+  icon    String
+
+  @@map("categories")
+}
+
+model MenuItem {
+  id                       String    @id
+  nameFr                   String    @map("name_fr")
+  nameAr                   String    @map("name_ar")
+  nameEn                   String    @map("name_en")
+  descFr                   String?   @map("desc_fr")
+  descAr                   String?   @map("desc_ar")
+  descEn                   String?   @map("desc_en")
+  price                    Decimal   @db.Decimal(10, 2)
+  category                 String
+  image                    String
+  spiceLevel               Int?      @default(0) @map("spice_level")
+  isHealthy                Boolean?  @default(false) @map("is_healthy")
+  isPopular                Boolean?  @default(false) @map("is_popular")
+  isNew                    Boolean?  @default(false) @map("is_new")
+  preparationTimeMinutes   Int?      @default(10) @map("preparation_time_minutes")
+  calories                 Int?
+  protein                  Decimal?  @db.Decimal(10, 2)
+  carbs                    Decimal?  @db.Decimal(10, 2)
+  fat                      Decimal?  @db.Decimal(10, 2)
+  dietTags                 String[]  @default([]) @map("diet_tags")
+  createdAt                DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("menu_items")
+}
+
+model Order {
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userEmail        String    @map("user_email")
+  userName         String    @map("user_name")
+  userPhone        String    @map("user_phone")
+  serviceMode      String    @map("service_mode")
+  tableNumber      String?   @map("table_number")
+  deliveryAddress  Json?     @map("delivery_address")
+  items            Json
+  subtotal         Decimal   @db.Decimal(10, 2)
+  deliveryFee      Decimal?  @default(0.00) @map("delivery_fee") @db.Decimal(10, 2)
+  total            Decimal   @db.Decimal(10, 2)
+  status           String?   @default("pending")
+  paymentMethod    String?   @default("cash") @map("payment_method")
+  paymentStatus    String?   @default("paid") @map("payment_status")
+  createdAt        DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("orders")
+}
+
+model Review {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userName    String    @map("user_name")
+  userAvatar  String?   @map("user_avatar")
+  rating      Int
+  comment     String
+  isApproved  Boolean?  @default(true) @map("is_approved")
+  reply       String?
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("reviews")
+}
+
+model Reclamation {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orderId     String?   @map("order_id")
+  userName    String    @map("user_name")
+  userEmail   String    @map("user_email")
+  userPhone   String    @map("user_phone")
+  subject     String
+  description String
+  imageUrl    String?   @map("image_url")
+  status      String?   @default("new")
+  adminNote   String?   @map("admin_note")
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("reclamations")
+}

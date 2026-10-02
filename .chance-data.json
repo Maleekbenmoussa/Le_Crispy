@@ -1,0 +1,82 @@
+{
+  "settings": {
+    "isGameActive": true,
+    "probabilities": {
+      "10_percent": 30,
+      "free_drink": 20,
+      "15_percent": 20,
+      "free_fries": 15,
+      "free_delivery": 10,
+      "20_percent": 5
+    },
+    "codeValidityHours": 48
+  },
+  "codes": [
+    {
+      "id": "code_1789477083708_1jp2",
+      "code": "BOISSON-5XU3",
+      "rewardId": "free_drink",
+      "rewardLabel": "Boisson offerte",
+      "discountType": "free_item",
+      "freeItemName": "Boisson 33cl au choix",
+      "createdAt": "2026-09-15T12:58:03.708Z",
+      "expiresAt": "2026-09-17T12:58:03.708Z",
+      "isUsed": false,
+      "clientIp": "cli_1789477082850"
+    },
+    {
+      "id": "code_1789476502117_x5xe",
+      "code": "WIN10-32EC",
+      "rewardId": "10_percent",
+      "rewardLabel": "-10% sur votre commande",
+      "discountType": "percentage",
+      "discountValue": 10,
+      "createdAt": "2026-09-15T12:48:22.117Z",
+      "expiresAt": "2026-09-17T12:48:22.117Z",
+      "isUsed": false,
+      "clientIp": "::1",
+      "customerContact": "0612345678"
+    },
+    {
+      "id": "code-1",
+      "code": "WIN15-X7K9",
+      "rewardId": "15_percent",
+      "rewardLabel": "-15% sur votre commande",
+      "discountType": "percentage",
+      "discountValue": 15,
+      "customerContact": "06 12 34 56 78",
+      "createdAt": "2026-09-15T08:46:17.321Z",
+      "expiresAt": "2026-09-17T08:46:17.323Z",
+      "isUsed": false
+    },
+    {
+      "id": "code-2",
+      "code": "FRITES-K3M8",
+      "rewardId": "free_fries",
+      "rewardLabel": "Frites offertes",
+      "discountType": "free_item",
+      "freeItemName": "Portion de Frites Maison Croustillantes",
+      "customerContact": "client.gourmet@gmail.com",
+      "createdAt": "2026-09-15T00:46:17.323Z",
+      "expiresAt": "2026-09-17T00:46:17.323Z",
+      "isUsed": true,
+      "usedAt": "2026-09-15T10:46:17.323Z"
+    },
+    {
+      "id": "code-3",
+      "code": "WIN20-H8R2",
+      "rewardId": "20_percent",
+      "rewardLabel": "-20% sur votre commande",
+      "discountType": "percentage",
+      "discountValue": 20,
+      "customerContact": "07 89 45 12 00",
+      "createdAt": "2026-09-14T16:46:17.323Z",
+      "expiresAt": "2026-09-16T16:46:17.323Z",
+      "isUsed": false
+    }
+  ],
+  "spinsByIp": {
+    "::1": 1789476502117,
+    "cli_1789477082850": 1789477083708
+  }
+}
